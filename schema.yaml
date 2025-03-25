@@ -1,0 +1,279 @@
+tables:
+  fx_drivers:
+    description: "driver info"
+    columns:
+      id:
+        type: integer
+        primary_key: true
+        description: "unique identifier for the driver"
+      
+      email:
+        type: text
+        description: "driver's email address"
+      
+      first_name:
+        type: text
+        description: "driver's first name"
+      
+      last_name:
+        type: text
+        description: "driver's last name"
+      
+      group_ids:
+        type: integer[]
+        description: "array of group ids the driver belongs to"
+
+      company_reference_id:
+        type: integer
+        description: "driver's company reference id"
+
+      phone:
+        type: text
+        description: "driver's phone number"
+
+      phone_country_code:
+        type: text
+        description: "driver's phone country code"
+
+      phone_ext:
+        type: text
+        description: "driver's phone extension"
+
+      time_zone:
+        type: text
+        description: "driver's time zone"
+
+      metric_units:
+        type: boolean
+        description: "are metric units used?"
+
+      carrier_name:
+        type: text
+        description: "carrier name"
+
+      carrier_street:
+        type: text
+        description: "carrier street address"
+
+      carrier_city:
+        type: text
+        description: "carrier city"
+
+      carrier_state:
+        type: text
+        description: "carrier state"
+
+      carrier_zip:
+        type: text
+        description: "carrier zip code"
+
+      violation_alerts:
+        type: text
+        description: "frequency of violation alerts"
+
+      terminal_street:
+        type: text
+        description: "terminal street address"
+
+      terminal_city:
+        type: text
+        description: "terminal city"
+
+      terminal_state:
+        type: text
+        description: "terminal state"
+
+      terminal_zip:
+        type: text
+        description: "terminal zip code"
+      
+      cycle:
+        type: text
+        description: "cycle type"
+
+      exception_24_hour_restart:
+        type: boolean
+        description: "is the 24-hour restart exception being applied?"
+
+      exception_8_hour_break:
+        type: boolean
+        description: "is the 8-hour break exception being applied?"
+
+      exception_wait_time:
+        type: boolean
+        description: "is the wait time exception being applied?"
+
+      exception_short_haul:
+        type: boolean
+        description: "is the short haul exception being applied?"
+
+      exception_ca_farm_school_bus:
+        type: boolean
+        description: "is the CA farm school bus exception being applied?"
+
+      exception_adverse_driving:
+        type: boolean
+        description: "is the adverse driving exception being applied?"
+
+      cycle2:
+        type: text
+        description: "2nd cycle type"
+
+      exception_24_hour_restart2:
+        type: boolean
+        description: "is the 24-hour restart exception being applied to the 2nd cycle?"
+
+      exception_8_hour_break2:
+        type: boolean
+        description: "is the 8-hour break exception being applied to the 2nd cycle?"
+
+      exception_wait_time2:
+        type: boolean
+        description: "is the wait time exception being applied to the 2nd cycle?"
+
+      exception_short_haul2:
+        type: boolean
+        description: "is the short haul exception being applied to the 2nd cycle?"
+
+      exception_ca_farm_school_bus2:
+        type: boolean
+        description: "is the CA farm school bus exception being applied to the 2nd cycle?"
+      
+      exception_adverse_driving2:
+        type: boolean 
+        description: "is the adverse driving exception being applied to the 2nd cycle?"
+
+      export_combined:
+        type: boolean
+        description: "data export combined?"
+
+      export_recap:
+        type: boolean
+        description: "recap data exported?"
+
+      export_odometers:
+        type: boolean
+        description: "odometer readingsexported?"
+
+      username:
+        type: text
+        description: "driver's username"
+
+      driver_company_id:
+        type: integer
+        description: "driver's company id"
+
+      minute_logs:
+        type: boolean
+        description: "minute logs enabled?"
+
+      duty_status:
+        type: text
+        description: "driver's current duty status"
+
+      eld_mode:
+        type: text
+        description: "mode of the VG"
+
+      drivers_license_number: 
+        type: text
+        description: "driver's license number"
+
+      drivers_license_state:
+        type: text
+        description: "driver's license state"
+
+      yard_moves_enabled:
+        type: boolean
+        description: "yard moves enabled?"
+
+      personal_conveyance_enabled:
+        type: boolean
+        description: "personal conveyance enabled?"
+
+      mobile_last_active_at:
+        type: timestamp
+        description: "when driver was last active on mobile"
+
+      mobile_current_sign_in_at:
+        type: timestamp
+        description: "driver's current sign in time on mobile"
+
+      mobile_last_sign_in_at:
+        type: timestamp
+        description: "when driver was last signed in on mobile"
+
+      web_last_active_at:
+        type: timestamp
+        description: "when driver was last signed out on web"
+
+      web_current_sign_in_at:
+        type: timestamp
+        description: "driver's current sign in time on web"
+
+      web_last_sign_in_at:
+        type: timestamp
+        description: "when driver was last signed in on web"
+
+      role:
+        type: text
+        description: "user's role, always 'driver'"
+
+      status:
+        type: text
+        description: "driver's status"
+
+      external_ids:
+        type: integer[]
+        description: "list of external ids associated with the driver, ignore this"
+
+      created_at:
+        type: timestamp
+        description: "when the driver was added to the database, ignore this"
+
+      updated_at:
+        type: timestamp
+        description: "when the driver was last updated"
+
+  fx_locations_d:
+    description: "driver's location info"
+    columns:
+      id:
+        type: integer
+        primary_key: true
+        auto_increment: true
+        description: "unique identifier for the driver'slocation"
+
+      driver_id:
+        type: integer
+        description: "driver's id"
+        references:
+          table: fx_drivers
+          column: id
+          on_update: cascade
+          on_delete: set null
+
+      location_point:
+        type: point
+        description: "driver's location point, in this format (longitude, latitude)"
+
+      location_time:
+        type: timestamp
+        description: "driver's location timestamp"
+
+      location_description:
+        type: text
+        description: "driver's location description"
+
+      location_lat:
+        type: float
+        description: "driver's location latitude"
+
+      location_lon:
+        type: float
+        description: "driver's location longitude"
+
+      vehicle_id:
+        type: integer
+        description: "driver's current vehicle id"
+
